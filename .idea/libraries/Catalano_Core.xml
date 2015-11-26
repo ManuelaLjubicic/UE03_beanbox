@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Catalano.Core">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Catalano.Core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Catalano.Image.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Catalano.Math.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Catalano.Statistics.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
