@@ -8,9 +8,14 @@ import java.io.Serializable;
  */
 public class LoadImageBean extends Canvas implements Serializable {
 
+
     public LoadImageBean(){
         setSize(60, 40);
         setBackground(Color.pink);
+    }
 
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
     }
 }
