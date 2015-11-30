@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Main-Class: main.TestMe
+
+Name: filterBeans.LoadImage.class
+Java-Bean: True
+
+Name: filterBeans.SaveImage.class
+Java-Bean: True
+
