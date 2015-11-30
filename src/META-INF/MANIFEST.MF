@@ -7,3 +7,15 @@ Java-Bean: True
 Name: filterBeans.SaveImage.class
 Java-Bean: True
 
+Name: filterBeans.DilateImage.class
+Java-Bean: True
+
+Name: filterBeans.ErodeImage.class
+Java-Bean: True
+
+Name: filterBeans.ThresholdImage.class
+Java-Bean: True
+
+Name: filterBeans.OpeningImage.class
+Java-Bean: True
+

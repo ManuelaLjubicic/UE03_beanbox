@@ -3,8 +3,10 @@ package filterBeans;
 import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
+import helper.ImageResize;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -18,7 +20,7 @@ public class AbstractFilterBean extends Canvas implements Serializable {
     protected Image image;
     String message;
 
-    //leerer Konstruktor wird benötigt damit man der Zustand in der Beanbox gespeichert wird. Serializable benötigt diesenr.
+    //leerer Konstruktor wird benötigt damit man der Zustand in der Beanbox gespeichert wird. Serializable benötigt diesen.
     public AbstractFilterBean(){}
 
     public AbstractFilterBean(String message){
@@ -56,4 +58,14 @@ public class AbstractFilterBean extends Canvas implements Serializable {
             g.drawString(message, 5, 20);
         }
     }
+
+//    public FastBitmap resizePicture(FastBitmap fastbitmap){
+//        FastBitmap fb = fastbitmap;
+//        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
+//        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+//        image = bi;
+//        repaint();
+//        fireEvent(fb);
+//        return fb;
+//    }
 }

@@ -15,7 +15,6 @@ public class LoadImage extends AbstractFilterBean implements ActionListener {
 
     private String path = "C:\\";
 
-
     public LoadImage(){
         super("LoadImage");
         setSize(_WIDTH, _HEIGHT);
@@ -24,13 +23,13 @@ public class LoadImage extends AbstractFilterBean implements ActionListener {
 
     public FastBitmap loadImage(String path) {
         FastBitmap fb = new FastBitmap(path);
-//        image = fb.toImage();
         int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
         BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);
         return fb;
+//        return resizePicture(fb);
     }
 
     public String getPath() {return path;}

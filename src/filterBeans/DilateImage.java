@@ -1,5 +1,6 @@
 package filterBeans;
 
+import Catalano.Imaging.Concurrent.Filters.Dilatation;
 import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
@@ -9,23 +10,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by manue on 29.11.2015.
+ * Created by manue on 30.11.2015.
  */
-public class SaveImage extends AbstractFilterBean implements IFilterEventListener{
+public class DilateImage extends AbstractFilterBean implements IFilterEventListener {
 
+    private int radius = 5;
     private FastBitmap fb;
-    private String path = "C:\\";
-    private String name = "Picture";
 
-
-    public SaveImage(){
-        super("SaveImage");
+    public DilateImage(){
+        super("DilateImage");
         setSize(_WIDTH, _HEIGHT);
         setBackground(Color.red);
     }
 
-    public FastBitmap saveImage(FastBitmap value, String path, String name) {
-        value.saveAsPNG(path + "\\" + name + ".png");
+    public FastBitmap dilateImage(FastBitmap fastBitmap, int radius){
+        fb = fastBitmap;
+        Dilatation d = new Dilatation(radius);
+        d.applyInPlace(fb);
         int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
         BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
         image = bi;
@@ -35,15 +36,13 @@ public class SaveImage extends AbstractFilterBean implements IFilterEventListene
 //        return resizePicture(fb);
     }
 
+
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-        saveImage(event.getFb(), path, name);
+        dilateImage(fb, radius);
     }
 
-    public String getPath() {return path;}
-    public void setPath(String path) {this.path = path;}
-
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public int getRadius() {return radius;}
+    public void setRadius(int radius) {this.radius = radius;}
 }
