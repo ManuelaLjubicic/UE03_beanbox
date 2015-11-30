@@ -1,7 +1,7 @@
 package filterBeans;
 
 import Catalano.Imaging.FastBitmap;
-import Catalano.Imaging.Filters.Opening;
+import Catalano.Imaging.Filters.Median;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
@@ -12,21 +12,21 @@ import java.awt.image.BufferedImage;
 /**
  * Created by manue on 30.11.2015.
  */
-public class OpeningImage extends AbstractFilterBean implements IFilterEventListener {
+public class MedianImage extends AbstractFilterBean implements IFilterEventListener{
 
     private FastBitmap fb;
     private int radius = 5;
 
-    public OpeningImage(){
-            super("OpeningImage");
-            setSize(_WIDTH, _HEIGHT);
-            setBackground(Color.red);
+    public MedianImage(){
+        super("MedianImage");
+        setSize(_WIDTH, _HEIGHT);
+        setBackground(Color.red);
     }
 
-    public FastBitmap openingImage(FastBitmap fastBitmap, int radius){
+    public FastBitmap medianImage(FastBitmap fastBitmap, int radius){
         fb = fastBitmap;
-        Opening o = new Opening(radius);
-        o.applyInPlace(fb);
+        Median m = new Median(radius);
+        m.applyInPlace(fb);
         int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
         BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
         image = bi;
@@ -38,7 +38,7 @@ public class OpeningImage extends AbstractFilterBean implements IFilterEventList
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-        openingImage(fb, radius);
+        medianImage(fb, radius);
     }
 
     public int getRadius() {return radius;}

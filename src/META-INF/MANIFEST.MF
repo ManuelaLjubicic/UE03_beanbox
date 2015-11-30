@@ -19,3 +19,12 @@ Java-Bean: True
 Name: filterBeans.OpeningImage.class
 Java-Bean: True
 
+Name: filterBeans.ClosingImage.class
+Java-Bean: True
+
+Name: filterBeans.MedianImage.class
+Java-Bean: True
+
+Name: filterBeans.ROIImage.class
+Java-Bean: True
+
