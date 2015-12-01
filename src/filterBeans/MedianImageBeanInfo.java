@@ -5,7 +5,5 @@ package filterBeans;
  */
 public class MedianImageBeanInfo extends AbstractBeanInfoRadius {
 
-    private final static Class beanClass = MedianImage.class;
-
-    public MedianImageBeanInfo() {super(beanClass);}
+    public MedianImageBeanInfo() {super(MedianImage.class);}
 }

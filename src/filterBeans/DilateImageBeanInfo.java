@@ -5,8 +5,5 @@ package filterBeans;
  */
 public class DilateImageBeanInfo extends AbstractBeanInfoRadius {
 
-    private final static Class beanClass = DilateImage.class;
-
-    public DilateImageBeanInfo() {super(beanClass);}
-
+    public DilateImageBeanInfo() {super(DilateImage.class);}
 }

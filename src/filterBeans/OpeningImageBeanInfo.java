@@ -5,10 +5,7 @@ package filterBeans;
  */
 public class OpeningImageBeanInfo extends AbstractBeanInfoRadius {
 
-    private final static Class beanClass = OpeningImage.class;
-
     public OpeningImageBeanInfo() {
-        super(beanClass);
+        super(OpeningImage.class);
     }
-
 }

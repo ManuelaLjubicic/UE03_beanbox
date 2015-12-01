@@ -5,9 +5,7 @@ package filterBeans;
  */
 public class ClosingImageBeanInfo extends AbstractBeanInfoRadius {
 
-    private final static Class beanClass = ClosingImage.class;
-
     public ClosingImageBeanInfo() {
-        super(beanClass);
+        super(ClosingImage.class);
     }
 }
