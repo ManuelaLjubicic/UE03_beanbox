@@ -7,7 +7,6 @@ import java.beans.EventSetDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.MethodDescriptor;
 import java.beans.SimpleBeanInfo;
-import java.io.Serializable;
 
 /**
  * Created by manue on 29.11.2015.

@@ -27,8 +27,7 @@ public class OpeningImage extends AbstractFilterBean implements IFilterEventList
         fb = fastBitmap;
         Opening o = new Opening(radius);
         o.applyInPlace(fb);
-        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);

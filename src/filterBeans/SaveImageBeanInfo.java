@@ -1,8 +1,5 @@
 package filterBeans;
 
-import com.sun.javaws.jnl.PropertyDesc;
-import helper.FilterEvent;
-
 import java.beans.*;
 
 /**

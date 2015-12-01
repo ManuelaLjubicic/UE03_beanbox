@@ -6,7 +6,6 @@ import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -19,16 +18,13 @@ public class MedianImage extends AbstractFilterBean implements IFilterEventListe
 
     public MedianImage(){
         super("MedianImage");
-        setSize(_WIDTH, _HEIGHT);
-        setBackground(Color.red);
     }
 
     public FastBitmap medianImage(FastBitmap fastBitmap, int radius){
         fb = fastBitmap;
         Median m = new Median(radius);
         m.applyInPlace(fb);
-        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);

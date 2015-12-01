@@ -5,8 +5,10 @@ import Catalano.Imaging.Filters.Crop;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
+import helper.ROIFrame;
 
-import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -18,26 +20,43 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     private int x = 0;
     private int y = 55;
     private int height = 80;
-    private int width = _WIDTH;
+    private int width = 420;
+    private BufferedImage bi;
+
 
     public ROIImage(){
         super("ROIImage");
-        setSize(_WIDTH, _HEIGHT);
-        setBackground(Color.red);
+        addMouseListener(ma);
     }
-
 
     public FastBitmap roiImage(FastBitmap fastBitmap, int x, int y, int width, int height){
         fb = fastBitmap;
         Crop crop = new Crop(y, x, width, height);
         crop.ApplyInPlace(fb);
-        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+        bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);
         return fb;
     }
+
+    MouseAdapter ma = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(e.getClickCount() == 2){
+                ROIFrame frame = new ROIFrame(bi);
+                x = (int) frame.getRec().getX();
+                y = (int) frame.getRec().getY();
+                height = (int) frame.getRec().getHeight();
+                width = (int) frame.getRec().getWidth();
+                System.out.println("x = " + x);
+                System.out.println("y = " + y);
+                System.out.println("height = " + height);
+                System.out.println("width = " + width);
+            }
+            super.mouseClicked(e);
+        }
+    };
 
     @Override
     public void handleFilterEvent(FilterEvent event) {

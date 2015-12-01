@@ -7,7 +7,6 @@ import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -22,8 +21,6 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
 
     public ThresholdImage(){
         super("ThresholdImage");
-        setSize(_WIDTH, _HEIGHT);
-        setBackground(Color.red);
     }
 
     public FastBitmap thresholdImage(FastBitmap fastBitmap, int lowLevel, int highLevel){
@@ -32,8 +29,7 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
         ReplaceColor rc = new ReplaceColor(new IntRange(lowLevel, highLevel),new IntRange(lowLevel,highLevel),new IntRange(lowLevel,highLevel));
         fb.toRGB();
         rc.ApplyInPlace(fb, 255, 255, 255);
-        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);

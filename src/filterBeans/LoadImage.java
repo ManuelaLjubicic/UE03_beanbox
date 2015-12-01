@@ -4,7 +4,6 @@ import Catalano.Imaging.FastBitmap;
 import helper.ImageResize;
 
 import java.awt.image.BufferedImage;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,19 +16,15 @@ public class LoadImage extends AbstractFilterBean implements ActionListener {
 
     public LoadImage(){
         super("LoadImage");
-        setSize(_WIDTH, _HEIGHT);
-        setBackground(Color.red);
     }
 
     public FastBitmap loadImage(String path) {
         FastBitmap fb = new FastBitmap(path);
-        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
+        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);
         return fb;
-//        return resizePicture(fb);
     }
 
     public String getPath() {return path;}

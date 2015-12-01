@@ -3,10 +3,8 @@ package filterBeans;
 import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
-import helper.ImageResize;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -15,10 +13,10 @@ import java.util.LinkedList;
  */
 public class AbstractFilterBean extends Canvas implements Serializable {
     private LinkedList<IFilterEventListener> listeners;
-    protected static final int _HEIGHT = 100;
+    protected static final int _HEIGHT = 150;
     protected static final int _WIDTH = 150;
     protected Image image;
-    String message;
+    protected String message;
 
     //leerer Konstruktor wird benötigt damit man der Zustand in der Beanbox gespeichert wird. Serializable benötigt diesen.
     public AbstractFilterBean(){}
@@ -26,6 +24,8 @@ public class AbstractFilterBean extends Canvas implements Serializable {
     public AbstractFilterBean(String message){
         listeners = new LinkedList<>();
         this.message = message;
+        setSize(_WIDTH, _HEIGHT);
+        setBackground(Color.white);
     }
 
     public void addListener(IFilterEventListener listener){
@@ -54,18 +54,9 @@ public class AbstractFilterBean extends Canvas implements Serializable {
             setSize(_WIDTH, _HEIGHT);
         }else {
             setSize(_WIDTH, _HEIGHT);
-            setBackground(Color.red);
+            setBackground(Color.white);
             g.drawString(message, 5, 20);
         }
     }
 
-//    public FastBitmap resizePicture(FastBitmap fastbitmap){
-//        FastBitmap fb = fastbitmap;
-//        int type = fb.toBufferedImage().getType() == 0? BufferedImage.TYPE_INT_ARGB : fb.toBufferedImage().getType();
-//        BufferedImage bi = ImageResize.resizeImage(fb.toBufferedImage(), type, _WIDTH, _HEIGHT);
-//        image = bi;
-//        repaint();
-//        fireEvent(fb);
-//        return fb;
-//    }
 }

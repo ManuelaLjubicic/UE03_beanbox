@@ -1,7 +1,5 @@
 package filterBeans;
 
-import helper.IFilterEventListener;
-
 import java.awt.event.ActionEvent;
 import java.beans.*;
 
