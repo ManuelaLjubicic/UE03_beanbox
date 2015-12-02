@@ -11,7 +11,7 @@ import java.beans.SimpleBeanInfo;
 /**
  * Created by manue on 29.11.2015.
  */
-public class AbstractBeanInfo extends SimpleBeanInfo{
+public abstract class AbstractBeanInfo extends SimpleBeanInfo{
 
     private Class usedClass;
 

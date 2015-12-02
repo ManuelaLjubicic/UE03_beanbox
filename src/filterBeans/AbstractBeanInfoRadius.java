@@ -6,7 +6,7 @@ import java.beans.PropertyDescriptor;
 /**
  * Created by manue on 01.12.2015.
  */
-public class AbstractBeanInfoRadius extends AbstractBeanInfo {
+public abstract class AbstractBeanInfoRadius extends AbstractBeanInfo {
 
     private Class usedClass;
 

@@ -14,10 +14,10 @@ import java.awt.image.BufferedImage;
 public class ROIFrame extends JDialog {
     private Rectangle rec;
     private Container panel;
-    private int x = 0;
-    private int y = 55;
-    private int height = 80;
-    private int width = 420;
+    private int x;
+    private int y;
+    private int height;
+    private int width;
     private int minX;
     private int minY;
     BufferedImage bi;
@@ -47,18 +47,25 @@ public class ROIFrame extends JDialog {
             public void mouseDragged(MouseEvent e) {
                 minX = Math.min(x, e.getX());
                 minY = Math.min(y, e.getY());
-                width = Math.max(y,e.getY()) - minY;
-                height = Math.max(x, e.getX()) - minX;
+                height = Math.max(y,e.getY()) - minY;
+                width = Math.max(x, e.getX()) - minX;
                 rec = new Rectangle(x, y, width,height);
+                repaint();
             }
         });
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if(width > 0 || height > 0){
+            g.setColor(Color.red);
+            g.drawRect(x, y, width, height);
+        }
     }
 
     public Rectangle getRec() {
         return rec;
     }
 
-//    public void setRec(Rectangle rec) {
-//        this.rec = rec;
-//    }
 }

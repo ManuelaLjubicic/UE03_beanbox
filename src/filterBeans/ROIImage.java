@@ -10,6 +10,7 @@ import helper.ROIFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
 import java.io.BufferedReader;
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ import java.io.Serializable;
  */
 public class ROIImage extends AbstractFilterBean implements IFilterEventListener, Serializable {
 
-    private transient FastBitmap fb;
+//    private transient FastBitmap fb;
     private transient FastBitmap fbTemp;
     private int x = 0;
     private int y = 55;
@@ -35,7 +36,9 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
                 y = (int) frame.getRec().getY();
                 height = (int) frame.getRec().getHeight();
                 width = (int) frame.getRec().getWidth();
-                roiImage(fbTemp, x, y, width, height);
+                fb = new FastBitmap(fbTemp);
+//                roiImage(x, y, width, height);
+                process();
                 System.out.println("x = " + x);
                 System.out.println("y = " + y);
                 System.out.println("height = " + height);
@@ -50,8 +53,8 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
         addMouseListener(ma);
     }
 
-    public FastBitmap roiImage(FastBitmap fastBitmap, int x, int y, int width, int height) {
-        fb = fastBitmap;
+    @Override
+    void process() {
         fbTemp = new FastBitmap(fb);
         Crop crop = new Crop(y, x, width, height);
         crop.ApplyInPlace(fb);
@@ -59,48 +62,64 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
         image = bi;
         repaint();
         fireEvent(fb);
-        return fb;
     }
+
+//    public FastBitmap roiImage(int x, int y, int width, int height) {
+//        fbTemp = new FastBitmap(fb);
+//        Crop crop = new Crop(y, x, width, height);
+//        crop.ApplyInPlace(fb);
+//        bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
+//        image = bi;
+//        repaint();
+//        fireEvent(fb);
+//        return fb;
+//    }
 
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-        roiImage(fb, x, y, width, height);
+        fbCopy = new FastBitmap(fb);
+//        roiImage(x, y, width, height);
+        process();
     }
 
     @Override
     public int getX() {
         return x;
     }
-
     public void setX(int x) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "x", this.x, x);
         this.x = x;
+        propertyChange(p);
     }
 
     @Override
     public int getY() {
         return y;
     }
-
     public void setY(int y) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "y", this.y, y);
         this.y = y;
+        propertyChange(p);
     }
 
     @Override
     public int getHeight() {
         return height;
     }
-
     public void setHeight(int height) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "height", this.height, height);
         this.height = height;
+        propertyChange(p);
     }
 
     @Override
     public int getWidth() {
         return width;
     }
-
     public void setWidth(int width) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "width", this.width, width);
         this.width = width;
+        propertyChange(p);
     }
 }

@@ -7,36 +7,52 @@ import helper.IFilterEventListener;
 import helper.ImageResize;
 
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
 
 /**
  * Created by manue on 30.11.2015.
  */
 public class ErodeImage extends AbstractFilterBean implements IFilterEventListener {
 
-    private FastBitmap fb;
+    //    private transient FastBitmap fb;
     private int radius = 5;
 
     public ErodeImage(){
         super("ErodeImage");
     }
 
-    public FastBitmap erodeImage(FastBitmap fastBitmap, int radius){
-        fb = fastBitmap;
+    @Override
+    void process() {
         Erosion e = new Erosion(radius);
         e.applyInPlace(fb);
         BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);
-        return fb;
     }
+
+//    public FastBitmap erodeImage(FastBitmap fastBitmap, int radius){
+//        fb = fastBitmap;
+//        Erosion e = new Erosion(radius);
+//        e.applyInPlace(fb);
+//        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
+//        image = bi;
+//        repaint();
+//        fireEvent(fb);
+//        return fb;
+//    }
 
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-        erodeImage(fb, radius);
+//        erodeImage(fb, radius);
+        process();
     }
 
     public int getRadius() {return radius;}
-    public void setRadius(int radius) {this.radius = radius;}
+    public void setRadius(int radius) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "radius", this.radius, radius);
+        this.radius = radius;
+        propertyChange(p);
+    }
 }
