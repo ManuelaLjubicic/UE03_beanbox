@@ -10,5 +10,10 @@ public class TestMe {
 
     }
 
-    //TODO Methoden in abstract auslagern
+    //TODO Bildüberlagerung
+    //TODO Code kommentieren
+    //TODO Doku schreiben
+    //TODO Manual
+    //TODO Klassendiagramm
+    //TODO PropertyChangeListener in SaveImage besprechen
 }
