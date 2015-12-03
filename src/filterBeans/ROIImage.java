@@ -18,28 +18,26 @@ import java.io.Serializable;
  */
 public class ROIImage extends AbstractFilterBean implements IFilterEventListener, Serializable {
 
-    //fbTemp wird bneötigt, damit bei mehrfachen ausschneiden des Bildes das orginal behalten wird
-    private transient FastBitmap fbTemp;
-    //x, y, height und width sind Werte für den ROI Bereich
-    private int x = 0;
-    private int y = 55;
-    private int height = 80;
-    private int width = 420;
+    //xPos, yPos, heightROI und widthROI sind Werte für den ROI Bereich
+    private int xPos = 0;
+    private int yPos = 55;
+    private int heightROI = 80;
+    private int widthROI = 420;
+
+
     //bei Doppel-Klick auf den ROI Filter in der BeanBox kann das Bild auch ausgeschnitten werden
     private transient MouseAdapter ma = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                ROIFrame frame = new ROIFrame(null, "ROI Image", true, fbTemp);
+                ROIFrame frame = new ROIFrame(null, "ROI Image", true, fbCopy);
                 //aufgrund von JDialog wird der untere Code erst durchgeführt sobald das frame geschlossen wird
-                x = (int) frame.getRec().getX();
-                y = (int) frame.getRec().getY();
-                height = (int) frame.getRec().getHeight();
-                width = (int) frame.getRec().getWidth();
-                fb = new FastBitmap(fbTemp);
-                process();
+
+                if(frame.getRec() != null) {
+                    setAllValues((int) frame.getRec().getX(), (int) frame.getRec().getY(),
+                            (int) frame.getRec().getWidth(), (int) frame.getRec().getHeight());
+                }
             }
-            super.mouseClicked(e);
         }
     };
 
@@ -51,8 +49,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     //Das eingehende Bild wird mit der Crop Methode anhand der Werte im Properties Fenster zusammen geschnitten und auf die FensterGröße des Filters in der BeanBos skaliert.
     @Override
     void process() {
-        fbTemp = new FastBitmap(fb);
-        Crop crop = new Crop(y, x, width, height);
+        Crop crop = new Crop(yPos, xPos, widthROI, heightROI);
         crop.ApplyInPlace(fb);
         BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
@@ -64,52 +61,50 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
         fbCopy = new FastBitmap(fb);
-        repaint();
         process();
     }
 
+    private void setAllValues(int x, int y, int width, int height) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "all", 0, 1);
+        this.xPos = x;
+        this.yPos = y;
+        this.widthROI = width;
+        this.heightROI = height;
+        propertyChange(p);
+    }
+
     //bei Änderung der Werte im Properties Fenster wird im Setter die propertyChange Methode aufgerufen und das Bild wird neu berechnet
-    @Override
-    public int getX() {
-        return x;
+    public int getXPos() {
+        return xPos;
     }
-    public void setX(int x) {
-        PropertyChangeEvent p = new PropertyChangeEvent(this, "x", this.x, x);
-        this.x = x;
-        fb = new FastBitmap(fbCopy); //neue
+    public void setXPos(int xPos) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "xPos", this.xPos, xPos);
+        this.xPos = xPos;
         propertyChange(p);
     }
 
-    @Override
-    public int getY() {
-        return y;
+    public int getYPos() {
+        return yPos;
     }
-    public void setY(int y) {
-        PropertyChangeEvent p = new PropertyChangeEvent(this, "y", this.y, y);
-        this.y = y;
-        fb = new FastBitmap(fbCopy); //neue
+    public void setYPos(int yPos) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "yPos", this.yPos, yPos);
+        this.yPos = yPos;
         propertyChange(p);
     }
 
-    @Override
-    public int getHeight() {
-        return height;
+    public int getHeightROI() {
+        return heightROI;
     }
-    public void setHeight(int height) {
-        PropertyChangeEvent p = new PropertyChangeEvent(this, "height", this.height, height);
-        this.height = height;
-        fb = new FastBitmap(fbCopy); //neue
+    public void setHeightROI(int heightROI) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "heightROI", this.heightROI, heightROI);
+        this.heightROI = heightROI;
         propertyChange(p);
     }
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
-    public void setWidth(int width) {
-        PropertyChangeEvent p = new PropertyChangeEvent(this, "width", this.width, width);
-        this.width = width;
-        fb = new FastBitmap(fbCopy); //neue
+    public int getWidthROI() { return widthROI; }
+    public void setWidthROI(int widthROI) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "widthROI", this.widthROI, widthROI);
+        this.widthROI = widthROI;
         propertyChange(p);
     }
 }

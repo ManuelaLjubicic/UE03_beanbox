@@ -17,10 +17,10 @@ public class ROIImageBeanInfo extends AbstractBeanInfo {
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(){
         try {
-            PropertyDescriptor x = new PropertyDescriptor("x", beanClass);
-            PropertyDescriptor y = new PropertyDescriptor("y", beanClass);
-            PropertyDescriptor height = new PropertyDescriptor("height", beanClass);
-            PropertyDescriptor width = new PropertyDescriptor("width", beanClass);
+            PropertyDescriptor x = new PropertyDescriptor("xPos", beanClass);
+            PropertyDescriptor y = new PropertyDescriptor("yPos", beanClass);
+            PropertyDescriptor height = new PropertyDescriptor("heightROI", beanClass);
+            PropertyDescriptor width = new PropertyDescriptor("widthROI", beanClass);
             PropertyDescriptor rv[] = {x, y, height, width};
             return rv;
         } catch (IntrospectionException e) {

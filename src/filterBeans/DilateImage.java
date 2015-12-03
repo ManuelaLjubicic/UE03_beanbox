@@ -1,6 +1,7 @@
 package filterBeans;
 
 import Catalano.Imaging.Concurrent.Filters.Dilatation;
+import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
@@ -34,7 +35,7 @@ public class DilateImage extends AbstractFilterBean implements IFilterEventListe
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-//        dilateImage(fb, radius);
+        fbCopy = new FastBitmap(fb);
         process();
     }
 

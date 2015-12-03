@@ -35,6 +35,7 @@ public class MedianImage extends AbstractFilterBean implements IFilterEventListe
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
+        fbCopy = new FastBitmap(fb);
         process();
     }
 

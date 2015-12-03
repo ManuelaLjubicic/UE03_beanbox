@@ -1,5 +1,6 @@
 package filterBeans;
 
+import Catalano.Imaging.FastBitmap;
 import Catalano.Imaging.Filters.Erosion;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
@@ -34,6 +35,7 @@ public class ErodeImage extends AbstractFilterBean implements IFilterEventListen
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
+        fbCopy = new FastBitmap(fb);
         process();
     }
 

@@ -4,6 +4,7 @@ import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
 
+import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -77,8 +78,13 @@ public abstract class AbstractFilterBean extends Canvas implements Serializable,
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         //zurücksetzen vom Bild, da die Properties geändert wurden
-        fb = fbCopy;
-        process();
+
+        if(!evt.getOldValue().equals(evt.getNewValue())) {
+            if (fbCopy != null) {
+                fb = new FastBitmap(fbCopy);
+            }
+            process();
+        }
     }
 
 }

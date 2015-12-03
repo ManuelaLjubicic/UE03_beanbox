@@ -7,6 +7,7 @@ import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 
@@ -18,16 +19,13 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
     //für die Berechnung des Thresholds wird ein lowLevel und ein highLevel Wert benötigt
     private int lowLevel = 0;
     private int highLevel = 40;
-    private transient FastBitmap copyFBThreshold;
 
     public ThresholdImage(){
         super("ThresholdImage");
     }
 
-    //
     @Override
     void process() {
-        copyFBThreshold = new FastBitmap(fb);
         ReplaceColor rc = new ReplaceColor(new IntRange(lowLevel, highLevel),new IntRange(lowLevel,highLevel),new IntRange(lowLevel,highLevel));
         fb.toRGB();
         rc.ApplyInPlace(fb, 255, 255, 255);
@@ -41,8 +39,6 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
         fbCopy = new FastBitmap(fb);
-        copyFBThreshold = new FastBitmap(fbCopy);
-        repaint();
         process();
     }
 
@@ -51,7 +47,6 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
     public void setLowLevel(int lowLevel) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "lowLevel", this.lowLevel, lowLevel);
         this.lowLevel = lowLevel;
-        fb = new FastBitmap(fbCopy);
         propertyChange(p);
     }
 
@@ -59,7 +54,6 @@ public class ThresholdImage extends AbstractFilterBean implements IFilterEventLi
     public void setHighLevel(int highLevel) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "highLevel", this.highLevel, highLevel);
         this.highLevel = highLevel;
-        fb = new FastBitmap(fbCopy);
         propertyChange(p);
     }
 }

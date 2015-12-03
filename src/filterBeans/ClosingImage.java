@@ -35,6 +35,7 @@ public class ClosingImage extends AbstractFilterBean implements IFilterEventList
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
+        fbCopy = new FastBitmap(fb);
         process();
     }
 
