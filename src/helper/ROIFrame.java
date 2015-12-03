@@ -30,7 +30,7 @@ public class ROIFrame extends JDialog {
         super(owner, title, modal);
 
         bi = img.toBufferedImage();
-        this.setSize(img.getWidth(), (img.getHeight()) + 50);
+        this.setSize(img.getWidth(), (img.getHeight()));
         this.getContentPane().add(new JLabel(new ImageIcon(bi)));
         panel = getContentPane();
         initializeDrag();

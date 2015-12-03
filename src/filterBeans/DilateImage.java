@@ -1,7 +1,6 @@
 package filterBeans;
 
 import Catalano.Imaging.Concurrent.Filters.Dilatation;
-import Catalano.Imaging.FastBitmap;
 import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;

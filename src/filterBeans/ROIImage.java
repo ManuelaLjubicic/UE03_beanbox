@@ -64,6 +64,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
         fbCopy = new FastBitmap(fb);
+        repaint();
         process();
     }
 
@@ -75,6 +76,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void setX(int x) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "x", this.x, x);
         this.x = x;
+        fb = new FastBitmap(fbCopy); //neue
         propertyChange(p);
     }
 
@@ -85,6 +87,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void setY(int y) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "y", this.y, y);
         this.y = y;
+        fb = new FastBitmap(fbCopy); //neue
         propertyChange(p);
     }
 
@@ -95,6 +98,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void setHeight(int height) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "height", this.height, height);
         this.height = height;
+        fb = new FastBitmap(fbCopy); //neue
         propertyChange(p);
     }
 
@@ -105,6 +109,7 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
     public void setWidth(int width) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "width", this.width, width);
         this.width = width;
+        fb = new FastBitmap(fbCopy); //neue
         propertyChange(p);
     }
 }
