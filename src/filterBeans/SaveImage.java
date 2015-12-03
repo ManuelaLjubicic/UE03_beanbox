@@ -13,7 +13,6 @@ import java.beans.PropertyChangeEvent;
  */
 public class SaveImage extends AbstractFilterBean implements IFilterEventListener{
 
-    //    private transient FastBitmap fb;
     private String path = "C:\\";
     private String name = "Picture";
 
@@ -22,6 +21,7 @@ public class SaveImage extends AbstractFilterBean implements IFilterEventListene
         super("SaveImage");
     }
 
+    //in dieser Methode wird im eigegeben Pfad das Bild als png gespeichert
     @Override
     void process() {
         fb.saveAsPNG(path + "\\" + name + ".png");
@@ -31,19 +31,9 @@ public class SaveImage extends AbstractFilterBean implements IFilterEventListene
         fireEvent(fb);
     }
 
-//    public FastBitmap saveImage(FastBitmap value, String path, String name) {
-//        value.saveAsPNG(path + "\\" + name + ".png");
-//        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
-//        image = bi;
-//        repaint();
-//        fireEvent(fb);
-//        return fb;
-//    }
-
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-//        saveImage(event.getFb(), path, name);
         process();
     }
 

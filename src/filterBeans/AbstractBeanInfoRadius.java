@@ -8,6 +8,7 @@ import java.beans.PropertyDescriptor;
  */
 public abstract class AbstractBeanInfoRadius extends AbstractBeanInfo {
 
+    //usedClass wird benötigt damit die BeanInfo Klasse weiß für welche Klasse die Properties geändert wurden
     private Class usedClass;
 
     public AbstractBeanInfoRadius(Class usedClass) {
@@ -15,7 +16,7 @@ public abstract class AbstractBeanInfoRadius extends AbstractBeanInfo {
         this.usedClass = usedClass;
     }
 
-
+    //alle Beans die einen radius als Properties Parameter in der BeanBox benötigen können von dieser Klasse erben, wie zB. ErodeImage, DilateImage, etc.
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(){
         try {

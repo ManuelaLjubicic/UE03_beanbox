@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
-import java.io.BufferedReader;
 import java.io.Serializable;
 
 /**
@@ -19,30 +18,26 @@ import java.io.Serializable;
  */
 public class ROIImage extends AbstractFilterBean implements IFilterEventListener, Serializable {
 
-//    private transient FastBitmap fb;
+    //fbTemp wird bneötigt, damit bei mehrfachen ausschneiden des Bildes das orginal behalten wird
     private transient FastBitmap fbTemp;
+    //x, y, height und width sind Werte für den ROI Bereich
     private int x = 0;
     private int y = 55;
     private int height = 80;
     private int width = 420;
-    private transient BufferedImage bi;
-
+    //bei Doppel-Klick auf den ROI Filter in der BeanBox kann das Bild auch ausgeschnitten werden
     private transient MouseAdapter ma = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
                 ROIFrame frame = new ROIFrame(null, "ROI Image", true, fbTemp);
+                //aufgrund von JDialog wird der untere Code erst durchgeführt sobald das frame geschlossen wird
                 x = (int) frame.getRec().getX();
                 y = (int) frame.getRec().getY();
                 height = (int) frame.getRec().getHeight();
                 width = (int) frame.getRec().getWidth();
                 fb = new FastBitmap(fbTemp);
-//                roiImage(x, y, width, height);
                 process();
-                System.out.println("x = " + x);
-                System.out.println("y = " + y);
-                System.out.println("height = " + height);
-                System.out.println("width = " + width);
             }
             super.mouseClicked(e);
         }
@@ -53,36 +48,26 @@ public class ROIImage extends AbstractFilterBean implements IFilterEventListener
         addMouseListener(ma);
     }
 
+    //Das eingehende Bild wird mit der Crop Methode anhand der Werte im Properties Fenster zusammen geschnitten und auf die FensterGröße des Filters in der BeanBos skaliert.
     @Override
     void process() {
         fbTemp = new FastBitmap(fb);
         Crop crop = new Crop(y, x, width, height);
         crop.ApplyInPlace(fb);
-        bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
+        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         repaint();
         fireEvent(fb);
     }
 
-//    public FastBitmap roiImage(int x, int y, int width, int height) {
-//        fbTemp = new FastBitmap(fb);
-//        Crop crop = new Crop(y, x, width, height);
-//        crop.ApplyInPlace(fb);
-//        bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
-//        image = bi;
-//        repaint();
-//        fireEvent(fb);
-//        return fb;
-//    }
-
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
         fbCopy = new FastBitmap(fb);
-//        roiImage(x, y, width, height);
         process();
     }
 
+    //bei Änderung der Werte im Properties Fenster wird im Setter die propertyChange Methode aufgerufen und das Bild wird neu berechnet
     @Override
     public int getX() {
         return x;

@@ -15,15 +15,12 @@ import java.beans.PropertyChangeEvent;
  */
 public class OpeningImage extends AbstractFilterBean implements IFilterEventListener {
 
-    //private transient FastBitmap fb;
+    //für das Opening wird ein radius benötigt
     private int radius = 5;
 
-    public OpeningImage(){
-            super("OpeningImage");
-            setSize(_WIDTH, _HEIGHT);
-            setBackground(Color.red);
-    }
+    public OpeningImage(){super("OpeningImage");}
 
+    //in dieser Methode wird das Bild mit einem Opening aus dem Catalano Framework bearbeitet
     @Override
     void process() {
         Opening o = new Opening(radius);
@@ -34,21 +31,9 @@ public class OpeningImage extends AbstractFilterBean implements IFilterEventList
         fireEvent(fb);
     }
 
-//    public FastBitmap openingImage(FastBitmap fastBitmap, int radius){
-//        fb = fastBitmap;
-//        Opening o = new Opening(radius);
-//        o.applyInPlace(fb);
-//        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
-//        image = bi;
-//        repaint();
-//        fireEvent(fb);
-//        return fb;
-//    }
-
     @Override
     public void handleFilterEvent(FilterEvent event) {
         fb = event.getFb();
-//        openingImage(fb, radius);
         process();
     }
 

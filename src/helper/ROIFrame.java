@@ -14,14 +14,18 @@ import java.awt.image.BufferedImage;
 public class ROIFrame extends JDialog {
     private Rectangle rec;
     private Container panel;
+    //height, width, x und y werden benötigt um die Werte an das rectangle weiterzugeben
     private int x;
     private int y;
     private int height;
     private int width;
+    //minX und minY wird benötigt um height und width auszurechnen
     private int minX;
     private int minY;
-    BufferedImage bi;
+    //in bi wird das orginal bild geladen und angezeigt
+    private transient BufferedImage bi;
 
+    //JDialog wird verwedent, da sobald dieses Fenster geöffnet wurde im Hintergrund alles "einfriert"
     public ROIFrame(Frame owner, String title, boolean modal, FastBitmap img) {
         super(owner, title, modal);
 
@@ -34,6 +38,7 @@ public class ROIFrame extends JDialog {
         this.setVisible(true);
     }
 
+    //in dieser Methode werden die Werte des Rechtecks genommen
     private void initializeDrag() {
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -55,6 +60,7 @@ public class ROIFrame extends JDialog {
         });
     }
 
+    //wird benötigt um beim ausscheidnen ein rotes Reckteck anzuzeigen
     @Override
     public void paint(Graphics g) {
         super.paint(g);

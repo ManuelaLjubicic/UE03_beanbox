@@ -19,6 +19,7 @@ public abstract class AbstractBeanInfo extends SimpleBeanInfo{
         this.usedClass = usedClass;
     }
 
+    
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
         MethodDescriptor md = null;
@@ -30,6 +31,7 @@ public abstract class AbstractBeanInfo extends SimpleBeanInfo{
         return new MethodDescriptor[]{md};
     }
 
+    //hier wird das Event gesetzt
     @Override
     public EventSetDescriptor[] getEventSetDescriptors() {
 
