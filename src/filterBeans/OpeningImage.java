@@ -23,6 +23,7 @@ public class OpeningImage extends AbstractFilterBean implements IFilterEventList
     //in dieser Methode wird das Bild mit einem Opening aus dem Catalano Framework bearbeitet
     @Override
     void process() {
+
         Opening o = new Opening(radius);
         o.applyInPlace(fb);
         BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
@@ -41,7 +42,9 @@ public class OpeningImage extends AbstractFilterBean implements IFilterEventList
     public int getRadius() {return radius;}
     public void setRadius(int radius) {
         PropertyChangeEvent p = new PropertyChangeEvent(this, "radius", this.radius, radius);
+        System.out.println("this.Radius radius " + this.radius +" " + radius);
         this.radius = radius;
+        System.out.println("this.Radius radius " + this.radius +" " + radius);
         propertyChange(p);
     }
 }

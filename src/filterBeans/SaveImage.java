@@ -38,7 +38,9 @@ public class SaveImage extends AbstractFilterBean implements IFilterEventListene
     }
 
     public String getPath() {return path;}
+
     public void setPath(String path) {
+
 //        PropertyChangeEvent p = new PropertyChangeEvent(this, "path", this.path, path);
         this.path = path;
 //        propertyChange(p);
