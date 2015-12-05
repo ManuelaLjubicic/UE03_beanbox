@@ -11,6 +11,10 @@ import java.beans.PropertyChangeEvent;
  * Created by Karin on 04.12.2015.
  */
 public class CalculateSolderJoint extends AbstractFilterBean implements IFilterEventListener {
+    //berechnet die Position der Lötstellen und gibt diese Koordinaten, sowie Abweichungen von Sollwerten in einer Textdatei aus
+    //dazu werden die Hilfs-Klassen CalcCentroids und CalculateSolderJointOutput verwendet
+    //CalcCentroid berechnet gefundenen Lötstellen   (= weiße "Bälle" im Bild); CalculateSolderJointOutput berechnet evtl.
+    //Abweichungen und gibt die Koordinaten der Lötstellen mit den Abweichungen in einer Textdatei aus.
 
     private String fileName;
     private String path = "C:\\";
@@ -34,8 +38,11 @@ public class CalculateSolderJoint extends AbstractFilterBean implements IFilterE
         BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         image = bi;
         solderJoints = cc.processFilter(fb);
-        fileName = path + "\\" + "name" +".txt";
+
+        fileName = path + "\\" + name +".txt";
+        System.out.println("Filename " + fileName);
         csjo = new CalculateSolderJointOutput(fileName, startPoint, setValueY, incrementX, toleranceX,toleranceY);
+        csjo.processFilter(solderJoints);
         fireEvent(fb);
     }
 
@@ -46,62 +53,60 @@ public class CalculateSolderJoint extends AbstractFilterBean implements IFilterE
         process();
     }
 
-    //bei Änderung der Werte im Properties Fenster wird im Setter die propertyChange Methode aufgerufen und das Bild wird neu berechnet
-//    public int getLowLevel() {return lowLevel;}
-//    public void setLowLevel(int lowLevel) {
-//        PropertyChangeEvent p = new PropertyChangeEvent(this, "lowLevel", this.lowLevel, lowLevel);
-//        this.lowLevel = lowLevel;
-//        propertyChange(p);
-//    }
-//
-//    public int getHighLevel() {return highLevel;}
-//    public void setHighLevel(int highLevel) {
-//        PropertyChangeEvent p = new PropertyChangeEvent(this, "highLevel", this.highLevel, highLevel);
-//        this.highLevel = highLevel;
-//        propertyChange(p);
-//    }
-
-
-
     public String getPath() {return path;}
-    public void setPath(String path) {this.path = path;}
+    public void setPath(String path) {
+//        PropertyChangeEvent p = new PropertyChangeEvent(this, "path", this.path, path);
+        this.path = path;
+//        propertyChange(p);
+    }
 
     public String getName() {return name;}
     public void setName (String name) {
+//        PropertyChangeEvent p = new PropertyChangeEvent(this, "name", this.name, name);
         this.name = name;
+//        propertyChange(p);
     }
 
     public int getStartPoint() {return startPoint;}
     public void setStartPoint(int startPoint) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "startPoint", this.startPoint, startPoint);
         this.startPoint = startPoint;
+        propertyChange(p);
     }
 
     public int getSetValueY() {
         return setValueY;
     }
     public void setSetValueY(int setValueY) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "setValueY", this.setValueY, setValueY);
         this.setValueY = setValueY;
+        propertyChange(p);
     }
 
     public int getIncrementX() {
         return incrementX;
     }
     public void setIncrementX(int incrementX) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "incrementX", this.incrementX, incrementX);
         this.incrementX = incrementX;
+        propertyChange(p);
     }
 
     public int getToleranceX() {
         return toleranceX;
     }
     public void setToleranceX(int toleranceX) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "toleranceX", this.toleranceX, toleranceX);
         this.toleranceX = toleranceX;
+        propertyChange(p);
     }
 
-    public int getToleranceY() {
-        return toleranceY;
+    public int getToleranceY() {return toleranceY;
     }
     public void setToleranceY(int toleranceY) {
+        PropertyChangeEvent p = new PropertyChangeEvent(this, "toleranceY", this.toleranceY, toleranceY);
         this.toleranceY = toleranceY;
+        propertyChange(p);
     }
 
 }

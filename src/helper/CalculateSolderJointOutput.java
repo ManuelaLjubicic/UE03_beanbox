@@ -9,6 +9,9 @@ import java.security.InvalidParameterException;
 /**
  * Created by manue on 15.11.2015.
  */
+
+//CalculateSolderJointOutput berechnet evtl.
+//Abweichungen und gibt die Koordinaten der Lötstellen mit den Abweichungen in einer Textdatei aus.
 public class CalculateSolderJointOutput{
 
     private String _fileName;
