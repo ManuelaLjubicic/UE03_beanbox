@@ -23,11 +23,11 @@ public class CalculateSolderJointBeanInfo extends AbstractBeanInfo {
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(){
         try {
-            PropertyDescriptor path = new PropertyDescriptor("path", beanClass);
             PropertyDescriptor name = new PropertyDescriptor("name", beanClass);
-            PropertyDescriptor startPoint = new PropertyDescriptor("startPointX", beanClass);
+            PropertyDescriptor path = new PropertyDescriptor("path", beanClass);
+            PropertyDescriptor startPoint = new PropertyDescriptor("startPoint", beanClass);
             PropertyDescriptor setValueY = new PropertyDescriptor("setValueY", beanClass);
-            PropertyDescriptor incrementX = new PropertyDescriptor("incrementY", beanClass);
+            PropertyDescriptor incrementX = new PropertyDescriptor("incrementX", beanClass);
             PropertyDescriptor toleranceX = new PropertyDescriptor("toleranceX", beanClass);
             PropertyDescriptor toleranceY = new PropertyDescriptor("toleranceY", beanClass);
             PropertyDescriptor rv[] = {path, name, startPoint, setValueY,incrementX, toleranceX,toleranceY};
