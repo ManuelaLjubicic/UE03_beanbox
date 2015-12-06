@@ -40,7 +40,6 @@ public class CalculateSolderJoint extends AbstractFilterBean implements IFilterE
         solderJoints = cc.processFilter(fb);
 
         fileName = path + "\\" + name +".txt";
-        System.out.println("Filename " + fileName);
         csjo = new CalculateSolderJointOutput(fileName, startPoint, setValueY, incrementX, toleranceX,toleranceY);
         csjo.processFilter(solderJoints);
         fireEvent(fb);
