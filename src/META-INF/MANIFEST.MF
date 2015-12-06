@@ -31,4 +31,7 @@ Java-Bean: True
 Name: filterBeans.CalculateSolderJoint.class
 Java-Bean: True
 
+Name: filterBeans.MergeImage.class
+Java-Bean: True
+
 
