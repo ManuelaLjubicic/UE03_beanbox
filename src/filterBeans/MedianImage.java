@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * Created by ${Manuela} on 30.11.2015.
  */
+
 public class MedianImage extends AbstractFilterBean implements IFilterEventListener{
 
     //für den Median wird ein radius benötigt
