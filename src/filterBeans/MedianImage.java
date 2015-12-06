@@ -6,11 +6,10 @@ import helper.FilterEvent;
 import helper.IFilterEventListener;
 import helper.ImageResize;
 
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 
 /**
- * Created by manue on 30.11.2015.
+ * Created by ${Manuela} on 30.11.2015.
  */
 public class MedianImage extends AbstractFilterBean implements IFilterEventListener{
 
@@ -26,8 +25,7 @@ public class MedianImage extends AbstractFilterBean implements IFilterEventListe
     void process() {
         Median m = new Median(radius);
         m.applyInPlace(fb);
-        BufferedImage bi = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
-        image = bi;
+        image = ImageResize.scale(fb.toBufferedImage(), _HEIGHT);
         repaint();
         fireEvent(fb);
     }
